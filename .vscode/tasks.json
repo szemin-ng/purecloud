@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "go",
+    "isShellCommand": true,
+    "showOutput": "silent",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "Go Build",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "showOutput": "silent",
+            "args": [
+                "build"
+            ],
+            "problemMatcher": "$tsc-watch"
+        },
+        {
+            "taskName": "Go Install",
+            "suppressTaskName": true,
+            "isTestCommand": true,
+            "showOutput": "silent",
+            "args": [
+                "install"
+            ],
+            "problemMatcher": "$tsc-watch"
+        }
+    ]
+}
