@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"purecloud"
+	"github.com/szemin-ng/purecloud"
 )
 
 // GetConversation gets details about a conversation that is live or completed. Sends and receives response from /api/v2/conversations/{conversationId}

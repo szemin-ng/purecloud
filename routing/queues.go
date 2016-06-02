@@ -6,8 +6,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"purecloud"
 	"strconv"
+
+	"github.com/szemin-ng/purecloud"
 )
 
 // GetQueueParams represents query parameters for getting information on a list of queues

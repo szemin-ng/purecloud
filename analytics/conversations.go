@@ -7,7 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"purecloud"
+
+	"github.com/szemin-ng/purecloud"
 )
 
 func QueryConversationAggregates(token purecloud.AccessToken, query purecloud.AggregationQuery) (response purecloud.AggregateQueryResponse, err error) {
