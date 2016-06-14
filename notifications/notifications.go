@@ -1,4 +1,4 @@
-package conversations
+package notifications
 
 import (
 	"encoding/json"
@@ -10,13 +10,17 @@ import (
 	"github.com/szemin-ng/purecloud"
 )
 
-// GetConversation gets details about a conversation that is live or completed. Sends and receives response from /api/v2/conversations/{conversationId}
-func GetConversation(token purecloud.AccessToken, conversationID string) (response Conversation, err error) {
+type Channel struct {
+	ID         string `json:"id,omitempty"`
+	ConnectURI string `json:"connectUri,omitempty"`
+}
+
+func CreateNotificationChannel(token purecloud.AccessToken) (resp Channel, err error) {
 	var u *url.URL
-	u, _ = url.Parse(token.ApiURL + "/api/v2/conversations/" + conversationID)
+	u, _ = url.Parse(token.ApiURL + "/api/v2/notifications/channels")
 
 	var req *http.Request
-	req, _ = http.NewRequest("GET", u.String(), nil)
+	req, _ = http.NewRequest("POST", u.String(), nil)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+token.Token)
 
@@ -35,7 +39,7 @@ func GetConversation(token purecloud.AccessToken, conversationID string) (respon
 
 	// No errors, decode JSON response body to struct
 	var decoder = json.NewDecoder(res.Body)
-	if err = decoder.Decode(&response); err != nil {
+	if err = decoder.Decode(&resp); err != nil {
 		return
 	}
 
