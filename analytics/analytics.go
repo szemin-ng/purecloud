@@ -27,6 +27,9 @@ func QueryConversationAggregates(token purecloud.AccessToken, query AggregationQ
 		return // failed to connect?
 	}
 
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak 
+	defer res.Body.Close()
+
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {
 		b, _ = ioutil.ReadAll(res.Body)
@@ -61,6 +64,9 @@ func QueryConversationDetails(token purecloud.AccessToken, query ConversationQue
 		return // failed to connect?
 	}
 
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak 
+	defer res.Body.Close()
+
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {
 		b, _ = ioutil.ReadAll(res.Body)
@@ -93,6 +99,9 @@ func QueryQueueObservations(token purecloud.AccessToken, query ObservationQuery)
 	if res, err = http.DefaultClient.Do(req); err != nil {
 		return // failed to connect?
 	}
+
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak 
+	defer res.Body.Close()
 
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {

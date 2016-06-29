@@ -63,6 +63,9 @@ func GetListOfQueues(token purecloud.AccessToken, params GetQueueParams) (list Q
 		return // failed to connect?
 	}
 
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak 
+	defer res.Body.Close()
+
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {
 		var b []byte

@@ -25,6 +25,9 @@ func GetConversation(token purecloud.AccessToken, conversationID string) (respon
 		return // failed to connect?
 	}
 
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak
+	defer res.Body.Close()
+
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {
 		var b []byte

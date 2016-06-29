@@ -15,7 +15,7 @@ type Channel struct {
 	ConnectURI string `json:"connectUri,omitempty"`
 }
 
-func CreateNotificationChannel(token purecloud.AccessToken) (resp Channel, err error) {
+func CreateChannel(token purecloud.AccessToken) (resp Channel, err error) {
 	var u *url.URL
 	u, _ = url.Parse(token.ApiURL + "/api/v2/notifications/channels")
 
@@ -28,6 +28,9 @@ func CreateNotificationChannel(token purecloud.AccessToken) (resp Channel, err e
 	if res, err = http.DefaultClient.Do(req); err != nil {
 		return // failed to connect?
 	}
+
+	// IMPORTANT: Close response body to allow reuse and avoid memory leak
+	defer res.Body.Close()
 
 	// Connected successfully but PureCloud may return an error
 	if res.StatusCode != http.StatusOK {
